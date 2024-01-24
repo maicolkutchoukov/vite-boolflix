@@ -13,34 +13,28 @@ export default {
         },
         convertFlags(i){
             let imgString = '../src/assets/img/icons8-'
-            if ((store.films[i].original_language == 'en') || (store.series[i].original_language == 'en')){
+            if (store.films[i].original_language == 'en'){
                 imgString += 'circolare-della-gran-bretagna-48.png'
                 console.log(imgString)
-            } else if(store.films[i].original_language == 'it' || (store.series[i].original_language == 'it')){
+            } else if(store.films[i].original_language == 'it'){
                 imgString += 'italy-48.png'
-            } else if(store.films[i].original_language == 'es' || (store.series[i].original_language == 'es')){
+            } else if(store.films[i].original_language == 'es'){
                 imgString += 'spain-48.png'
-            } else if(store.films[i].original_language == 'fr' || (store.series[i].original_language == 'fr')){
+            } else if(store.films[i].original_language == 'fr'){
                 imgString += 'france-48.png'
-            } else if(store.films[i].original_language == 'ru' || (store.series[i].original_language == 'ru')){
+            } else if(store.films[i].original_language == 'ru'){
                 imgString += 'romania-48.png'
-            } else if(store.films[i].original_language == 'de' || (store.series[i].original_language == 'de')){
+            } else if(store.films[i].original_language == 'de'){
                 imgString += 'germany-48.png'
             } else {
                 imgString += 'flag-di-programmazione-48.png'
             }
             return imgString
-        },
-        getImg(i){
-            console.log('immagine contatore', i)
-            let imgCopertinaString = 'https://image.tmdb.org/t/p/w342/'
-            imgCopertinaString += store.films[i].poster_path
-            return imgCopertinaString
         }
     },
     props:{
-        title: String,                  // ????????
-        original_title: String,         // ????????
+        title: String,
+        original_title: String,
     }
 }
 </script>
@@ -51,10 +45,11 @@ export default {
             <div class="row">
                 <div v-for="(film, i) in store.films" class="card-film col-3 mb-5 p-3 border">
                     <div>
-                        {{ film.title || film.name }}
+                        {{ film.title }}
+                        {{  }}
                     </div>
                     <div>
-                        {{ film.original_title || film.original_name }}
+                        {{ film.original_title }}
                     </div>
                     <div>
                         {{ film.original_language }}
@@ -65,13 +60,8 @@ export default {
                         {{ Math.round(film.vote_average / 2) }}
                         <!-- {{ convertRate(i) }} -->
                     </div>
-                    <div>
-                        <p>immagine copertina</p>
-                        <img class="img-fluid" :src="getImg(i)" :alt="film.poster_path">
-                    </div>
                 </div>
             </div>
-            
         </div>
     </main>
 </template>
