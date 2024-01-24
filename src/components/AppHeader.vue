@@ -8,6 +8,11 @@ export default {
         };
     },
     methods: {
+        searchAll(){
+            store.films = []
+            this.searchFilms()
+            this.searchSeries()
+        },
         searchFilms(){
             axios.get(store.baseUrlFilms, {
                     params: {
@@ -16,12 +21,12 @@ export default {
                     }
                 })
                 .then((response) => {
-                    console.log(response.data.results)
                     store.films = response.data.results
-                    console.log('Film', store.films)
+                    /* console.log('Film', store.films) */
             })
         },
         searchSeries(){
+            store.series = []
             axios.get(store.baseUrlSeries, {
                     params: {
                         query: store.queryFilm
@@ -29,14 +34,8 @@ export default {
                     }
                 })
                 .then((response) => {
-                    console.log(response.data.results)
                     store.series = response.data.results
-                    for (let i = 0; i < store.series.length; i++) {
-                        const element = store.series[i];
-                        store.films.push(element)
-                        
-                    }
-                    console.log('Serie tv', store.films)
+                    /* console.log('Serie TV', store.series) */
             })
         }
     },
@@ -57,9 +56,9 @@ export default {
                 </div>
                 <div class="col-6">
                     <div class="search-container">
-                        {{ store.queryFilm }}
-                        <input @keyup.enter="searchFilms(), searchSeries()" v-model="store.queryFilm" type="text">
-                        <button @click="searchFilms(), searchSeries()">Cerca</button>
+                        
+                        <input @keyup.enter="searchAll()" v-model="store.queryFilm" type="text">
+                        
                     </div>
                 </div>
             </div>
