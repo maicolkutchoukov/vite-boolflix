@@ -7,5 +7,4 @@ export const store = reactive ({
     queryFilm: '',
     films:[],
     series:[],
-    AllSearch:[]
 })

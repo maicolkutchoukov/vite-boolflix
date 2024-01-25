@@ -10,13 +10,34 @@ export default {
             store
         };
     },
+    methods: {
+        searchMovie(){
+            axios.get(store.baseUrlFilms, {
+                    params: {
+                        query: store.queryFilm
+                        
+                    }
+                })
+                .then((response) => {
+                    store.films = response.data.results
+                    
+            })
+            axios.get(store.baseUrlSeries, {
+                    params: {
+                        query: store.queryFilm
+                        
+                    }
+                })
+                .then((response) => {
+                    store.series = response.data.results
+                    
+            })
+        },
+    },
     components: {
         AppHeader,
         AppMain,
         AppFooter
-    },  
-    methods: {
-
     },
 }
 
@@ -24,7 +45,7 @@ export default {
 
 <template>
 
-    <AppHeader />
+    <AppHeader @search='searchMovie' />
 
     <AppMain />
 
