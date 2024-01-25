@@ -44,7 +44,7 @@ export default {
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item"
                                     v-for="(elem, i) in nav">
-                                        <a :class="{'active-page': i == 0}" 
+                                        <a :class="{'active-link': i == 0}" 
                                         href="#">
                                             {{ elem }}
                                         </a>
@@ -89,7 +89,7 @@ header{
                     color:lightgray
                 }
             }
-            .active-page{
+            .active-link{
                 color: white;
             }
         }

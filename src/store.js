@@ -7,5 +7,8 @@ export const store = reactive ({
     queryFilm: '',
     films:[],
     series:[],
+    genres: [],
+    filteredGenres: [],
+    selectedGenres: ''
     
 })

@@ -14,7 +14,7 @@ export default {
         voteAverage : Number,
         originalLanguage: String,
         overview : String,
-        posterPath: String
+        posterPath: String,
     }
 }
 </script>
