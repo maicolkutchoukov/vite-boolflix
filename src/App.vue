@@ -14,6 +14,8 @@ export default {
         searchMovie(){
             axios.get(store.baseUrlFilms, {
                     params: {
+                        api_key : store.apiKey,
+                        language: 'it',
                         query: store.queryFilm
                         
                     }
@@ -24,6 +26,8 @@ export default {
             })
             axios.get(store.baseUrlSeries, {
                     params: {
+                        api_key : store.apiKey,
+                        language: 'it',
                         query: store.queryFilm
                         
                     }
