@@ -9,35 +9,11 @@ export default {
         };
     },
     methods: {
-        /* getCastApi(){
-            for (let i = 0; i < store.idSerie.length; i++) {
-                const elem = store.idSerie[i];
-                console.log(elem)
-                axios.get('https://api.themoviedb.org/3/tv/' + elem + '/credits?', {
-                    params: {
-                        api_key : store.apiKey,
-                        language: 'it',
-                        query: store.queryFilm
-                    }
-                })
-                .then((response) => {
-                    console.log(response.data.cast)
-                    let cast = response.data.cast
-                    
-                    for (let i = 0; i < 5; i++) {
-                        const element = cast[i].name;
-                        store.cast.push(element)
-                        console.log('nome', element)
-                        console.log('store.cast', store.cast)
-                    }
-                    
-                })
-            }
-        } */
         getCastApi(){
             // CAST DEI SINGOLI FILM
             console.log('entra')
-            const urlActorsFilm = "https://api.themoviedb.org/3/movie/"+ this.idMovie +"/credits?api_key=" + store.apiKey
+            if(this.idMovie){
+                const urlActorsFilm = "https://api.themoviedb.org/3/movie/"+ this.idMovie +"/credits?api_key=" + store.apiKey
                 axios.get(urlActorsFilm)
                 .then((response) => {
                     for (let i = 0; i < 5; i++) {
@@ -45,6 +21,7 @@ export default {
                         console.log(this.actors)
                     }
                 })
+            } else if (this.idSerie){
                 const urlActorsSerie = "https://api.themoviedb.org/3/tv/"+ this.idSerie +"/credits?api_key=" + store.apiKey
                 axios.get(urlActorsSerie)
                 .then((response) => {
@@ -53,6 +30,8 @@ export default {
                         console.log(this.actors)
                     }
                 })
+            }
+            
             
         },
     },
