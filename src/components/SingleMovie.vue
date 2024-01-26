@@ -1,5 +1,6 @@
 <script>
 import { store } from '../store.js';
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -7,6 +8,31 @@ export default {
         };
     },
     methods: {
+        getCastApi(){
+            for (let i = 0; i < store.idSerie.length; i++) {
+                const elem = store.idSerie[i];
+                console.log(elem)
+                axios.get('https://api.themoviedb.org/3/tv/' + elem + '/credits?', {
+                    params: {
+                        api_key : store.apiKey,
+                        language: 'it',
+                        query: store.queryFilm
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data.cast)
+                    let cast = response.data.cast
+                    /* store.cast = response.data.cast */
+                    for (let i = 0; i < 5; i++) {
+                        const element = cast[i].name;
+                        store.cast.push(element)
+                        console.log('nome', element)
+                        console.log('store.cast', store.cast)
+                    }
+                    /* store.cast = response.data.results */
+                })
+            }
+        }
     },
     props:{
         titleOrName : String,
@@ -15,6 +41,20 @@ export default {
         originalLanguage: String,
         overview : String,
         posterPath: String,
+        idMovie: Number,
+        movieCast: Array
+    },
+    computed:{
+        imgPath(){
+            if (this.posterPath){
+            return 'https://image.tmdb.org/t/p/w342/' + this.posterPath + '.jpg'
+            } else{
+                return 'https://i.pinimg.com/474x/0c/4c/0c/0c4c0caccba6d36fe55a366782ace08b.jpg'
+            }
+        },
+        roundVote(){
+            return Math.round(this.voteAverage / 2)
+        }
     }
 }
 </script>
@@ -23,12 +63,7 @@ export default {
     <div class="flip-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <img v-if="posterPath != null" 
-                    :src="'https://image.tmdb.org/t/p/w342/' + posterPath + '.jpg'" 
-                    :alt="titleOrName"
-                    class="img-fluid">
-                <img v-else 
-                    :src="'https://i.pinimg.com/474x/0c/4c/0c/0c4c0caccba6d36fe55a366782ace08b.jpg'" 
+                <img :src="imgPath" 
                     :alt="titleOrName"
                     class="img-fluid">
             </div>
@@ -40,12 +75,20 @@ export default {
                     Titolo originale: {{ originalTitleOrName }}
                 </div>
                 <p class="mb-0">Voto : 
-                    <i v-for="(star, i) in Math.round(voteAverage / 2)" class="rate-stars fa-solid fa-star"></i>
-                    <i v-for="(star, i) in 5 - Math.round(voteAverage / 2)" class="fa-regular fa-star"></i>
+                    <i v-for="i in roundVote" class="rate-stars fa-solid fa-star"></i>
+                    <i v-for="j in (5 - roundVote)" class="fa-regular fa-star"></i>
                 </p>
                 <p class="">Descrizione: {{ overview }}</p>
                 <div>
                     <img :src="'../src/assets/img/' + originalLanguage + '.png'" :alt="originalLanguage">
+                </div>
+                <div>
+                    <p @click="getCastApi()">
+                        Cast
+                    </p>
+                    <p v-for="(actor, i) in store.cast">
+                        {{ actor }}
+                    </p>
                 </div>
             </div>
         </div>

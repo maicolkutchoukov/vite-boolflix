@@ -10,7 +10,7 @@ export default {
         };
     },
     methods: {
-        searchGenresList(){
+        /* searchGenresList(){
             console.log('entra')
             axios.get('https://api.themoviedb.org/3/discover/movie/?', {
             params: {
@@ -33,45 +33,50 @@ export default {
             }
         },
         searchGenresMovie(){
-            
             axios.get('https://api.themoviedb.org/3/discover/movie/?', {
-            params: {
-                api_key : store.apiKey,
-                language: 'it',
-                with_genres: this.idGenres
-            }
-            })
-            .then((response) => {
-                store.films = response.data.results
+                params: {
+                    api_key : store.apiKey,
+                    language: 'it',
+                    with_genres: this.idGenres
+                }
+                })
+                .then((response) => {
+                    store.films = response.data.results
             })
         },
         searchGenresSeries(){
             axios.get('https://api.themoviedb.org/3/discover/tv/?', {
-            params: {
-                api_key : store.apiKey,
-                language: 'it',
-                with_genres: this.idGenres
+                params: {
+                    api_key : store.apiKey,
+                    language: 'it',
+                    with_genres: this.idGenres
+                }
+                })
+                .then((response) => {
+                    store.series = response.data.results
+            })
+        }, */
+        /* getCastApi(){
+            for (let i = 0; i < store.series.length; i++) {
+                const elem = store.series[i];
+                store.idFilm.push(elem.id)
+                
             }
-            })
-            .then((response) => {
-                store.series = response.data.results
-            })
-        }
+            console.log(store.idFilm)
+        } */
+
     },
     components:{
         SingleMovie
     }
 }
-/* 
-https://api.themoviedb.org/3/genre/tv/list 
-https://api.themoviedb.org/3/discover/movie/?
-*/
+
 </script>
 
 <template>
     <main>
         <div class="container-fluid">
-            {{ store.selectedGenres }}
+            <button @click="getCastApi()">Cerca cast</button>
             <!-- Creazione della select con i generi -->
             <select v-model="store.selectedGenres" @change="searchGenresList(), searchGenresMovie(), searchGenresSeries()" id="search-id">
                 <option value="">Genere</option>
