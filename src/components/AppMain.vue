@@ -22,15 +22,17 @@ export default {
     <main>
         <div class="container-fluid">
             <!-- Creazione della select con i generi -->
-                <select v-model="store.selectedGenres" @change="$emit('change')" id="search-id">
-                <option value="" disabled>Genere</option>
-                <option 
-                v-for="(gen, i) in store.genres"
-                 :value="gen.name"
-                 >
-                    {{ gen.name }}
-                </option>
-            </select>
+           <div class="ms-5 ps-5">
+                <select v-model="store.selectedGenres" @change="$emit('change')" id="search-id" class="bg-black text-white border-black">
+                    <option value="" disabled>Genere</option>
+                    <option 
+                    v-for="(gen, i) in store.genres"
+                    :value="gen.name"
+                    >
+                        {{ gen.name }}
+                    </option>
+                </select>
+           </div>
             <!-- Films section -->
             <div class="row">
                 <h2 v-if="store.films.length > 0" class="mb-3 mt-3 ps-4">Film</h2>
@@ -43,6 +45,7 @@ export default {
                     :originalLanguage = "film.original_language"
                     :posterPath = "film.poster_path"
                     :idMovie ="film.id"
+                    :idGenres="film.genre_ids"
                     
                     />
                 </div>
