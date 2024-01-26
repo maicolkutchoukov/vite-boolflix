@@ -10,6 +10,9 @@ export default {
         };
     },
     methods: {
+        disableSearchIcon(){
+            store.searchFlag = false
+        }
     },
     components:{
         SingleMovie
@@ -20,7 +23,7 @@ export default {
 
 <template>
     <main>
-        <div class="container-fluid">
+        <div @click="disableSearchIcon()" class="container-fluid">
             <!-- Creazione della select con i generi -->
            <div class="ms-5 ps-5">
                 <select v-model="store.selectedGenres" @change="$emit('change')" id="search-id" class="bg-black text-white border-black">

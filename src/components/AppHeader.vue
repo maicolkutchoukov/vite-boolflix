@@ -18,13 +18,12 @@ export default {
                 'User 2'
             ],
             activeUser: '0',
-            searchFlag : false
         };
     },
     methods:{
-        activeSearch(){
-            this.searchFlag = true
-        }
+        activeSearchIcon(){
+            store.searchFlag = true
+        },
     }
 }
 </script>
@@ -56,7 +55,7 @@ export default {
                     
                 </div>
                 <div class="col-4 text-end d-flex align-items-center justify-content-end">
-                    <div v-if="searchFlag" class="search-container">
+                    <div v-if="store.searchFlag" class="search-container">
                         <input type="text" placeholder="Inserisci titolo..."
                           class="input-search"
                           v-model="store.queryFilm" 
@@ -66,8 +65,9 @@ export default {
                             store.queryFilm = ''">
                         
                     </div>
-                    <i @click="activeSearch()" 
-                    v-if="!(searchFlag)" class="fa-solid fa-magnifying-glass"></i>
+                    <i @click="activeSearchIcon()" 
+                       v-if="!(store.searchFlag)" class="fa-solid fa-magnifying-glass">
+                    </i>
                     
                 </div>
             </div>

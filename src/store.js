@@ -13,4 +13,5 @@ export const store = reactive ({
     idFilm: [],
     idSerie: [],
     actors:[],
+    searchFlag : false
 })

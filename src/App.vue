@@ -23,14 +23,10 @@ export default {
             })
             .then((response) => {
                 store.films = response.data.results
-                
-                console.log('Data Movies', response.data)
                 for (let i = 0; i < store.films.length; i++) {
                 const elem = store.films[i];
                 store.idFilm.push(elem.id)
-                
                 }
-                /* console.log('Id film',store.idFilm) */
             })
             /* Ricerca delle serie */
             axios.get(store.baseUrlSeries, {
@@ -58,7 +54,6 @@ export default {
             })
             .then((response) => {
                 store.filteredGenres = response.data.results
-                console.log(store.filteredGenres)
             })
                 for (let i = 0; i < store.genres.length; i++) {
                     const gen = store.genres[i]
@@ -97,7 +92,6 @@ export default {
         })
         .then((response) => {
             store.films = response.data.results
-            console.log(store.films)
         })
         axios.get('https://api.themoviedb.org/3/tv/top_rated', {
             params: {
@@ -116,9 +110,7 @@ export default {
         })
         .then((response) => {
             store.genres = response.data.genres
-            console.log('store.genres', store.genres)
-        })
-        
+        })      
     },
     components: {
         AppHeader,

@@ -40,8 +40,9 @@ export default {
                 }
             }
         },
-        emptyActors(){
+        emptyCastAndGenres(){
             store.actors = []
+            this.singleMovieGenres = []
         }
     },
     props:{
@@ -72,7 +73,7 @@ export default {
 </script>
 
 <template>
-    <div class="flip-card" @click="getCastApi(), getMovieGenres()" @mouseleave="emptyActors()">
+    <div class="flip-card" @click="getCastApi(), getMovieGenres()" @mouseleave="emptyCastAndGenres()">
         <div class="flip-card-inner">
             <div class="flip-card-front">
                 <img :src="imgPath" 
