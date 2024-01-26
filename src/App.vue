@@ -12,6 +12,7 @@ export default {
     },
     methods: {
         searchMovie(){
+            /* Ricerca de film */
             axios.get(store.baseUrlFilms, {
                 params: {
                     api_key : store.apiKey,
@@ -30,6 +31,7 @@ export default {
                 }
                 console.log('Id film',store.idFilm)
             })
+            /* Ricerca delle serie */
             axios.get(store.baseUrlSeries, {
                 params: {
                     api_key : store.apiKey,
@@ -72,8 +74,6 @@ export default {
                 }
                 
             }
-        },
-        searchGenresMovie(){
             axios.get('https://api.themoviedb.org/3/discover/movie/?', {
                 params: {
                     api_key : store.apiKey,
@@ -84,8 +84,6 @@ export default {
                 .then((response) => {
                     store.films = response.data.results
             })
-        },
-        searchGenresSeries(){
             axios.get('https://api.themoviedb.org/3/discover/tv/?', {
                 params: {
                     api_key : store.apiKey,
@@ -96,7 +94,6 @@ export default {
                 .then((response) => {
                     store.series = response.data.results
             })
-            
         },
         /* https://api.themoviedb.org/3/tv/   IDFILM/SERIE    /credits?api_key=db9df9f71721b8623e12907efc8216b8*/
     },
@@ -142,7 +139,7 @@ export default {
 
     <AppHeader @search='searchMovie' />
 
-    <AppMain />
+    <AppMain @change='searchGenresList'/>
 </template>
 
 <style lang="scss">

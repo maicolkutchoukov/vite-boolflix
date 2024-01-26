@@ -10,7 +10,7 @@ export default {
         };
     },
     methods: {
-        /* searchGenresList(){
+       /*  searchGenresList(){
             console.log('entra')
             axios.get('https://api.themoviedb.org/3/discover/movie/?', {
             params: {
@@ -76,10 +76,10 @@ export default {
 <template>
     <main>
         <div class="container-fluid">
-            <button @click="getCastApi()">Cerca cast</button>
             <!-- Creazione della select con i generi -->
-            <select v-model="store.selectedGenres" @change="searchGenresList(), searchGenresMovie(), searchGenresSeries()" id="search-id">
-                <option value="">Genere</option>
+            <!-- <select v-model="store.selectedGenres" @change="searchGenresList(), searchGenresMovie(), searchGenresSeries()" id="search-id"> -->
+                <select v-model="store.selectedGenres" @change="$emit('change')" id="search-id">
+                <option value="" disabled>Genere</option>
                 <option 
                 v-for="(gen, i) in store.genres"
                  :value="gen.name"
