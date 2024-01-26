@@ -5,10 +5,11 @@ export default {
     data() {
         return {
             store,
+            actors:[]
         };
     },
     methods: {
-        getCastApi(){
+        /* getCastApi(){
             for (let i = 0; i < store.idSerie.length; i++) {
                 const elem = store.idSerie[i];
                 console.log(elem)
@@ -22,17 +23,38 @@ export default {
                 .then((response) => {
                     console.log(response.data.cast)
                     let cast = response.data.cast
-                    /* store.cast = response.data.cast */
+                    
                     for (let i = 0; i < 5; i++) {
                         const element = cast[i].name;
                         store.cast.push(element)
                         console.log('nome', element)
                         console.log('store.cast', store.cast)
                     }
-                    /* store.cast = response.data.results */
+                    
                 })
             }
-        }
+        } */
+        getCastApi(){
+            // CAST DEI SINGOLI FILM
+            console.log('entra')
+            const urlActorsFilm = "https://api.themoviedb.org/3/movie/"+ this.idMovie +"/credits?api_key=" + store.apiKey
+                axios.get(urlActorsFilm)
+                .then((response) => {
+                    for (let i = 0; i < 5; i++) {
+                        this.actors.push(response.data.cast[i].name)
+                        console.log(this.actors)
+                    }
+                })
+                const urlActorsSerie = "https://api.themoviedb.org/3/tv/"+ this.idSerie +"/credits?api_key=" + store.apiKey
+                axios.get(urlActorsSerie)
+                .then((response) => {
+                    for (let i = 0; i < 5; i++) {
+                        this.actors.push(response.data.cast[i].name)
+                        console.log(this.actors)
+                    }
+                })
+            
+        },
     },
     props:{
         titleOrName : String,
@@ -42,6 +64,7 @@ export default {
         overview : String,
         posterPath: String,
         idMovie: Number,
+        idSerie: Number,
         movieCast: Array
     },
     computed:{
@@ -60,7 +83,7 @@ export default {
 </script>
 
 <template>
-    <div class="flip-card">
+    <div class="flip-card" @click="getCastApi()">
         <div class="flip-card-inner">
             <div class="flip-card-front">
                 <img :src="imgPath" 
@@ -69,7 +92,7 @@ export default {
             </div>
             <div class="flip-card-back px-3 py-4 overflow-y-auto">
                 <div>
-                    Titolo: {{ titleOrName }}
+                    Titolo: {{ titleOrName }} {{ idMovie }}
                 </div>
                 <div v-if="titleOrName != originalTitleOrName">
                     Titolo originale: {{ originalTitleOrName }}
@@ -83,10 +106,10 @@ export default {
                     <img :src="'../src/assets/img/' + originalLanguage + '.png'" :alt="originalLanguage">
                 </div>
                 <div>
-                    <p @click="getCastApi()">
+                    <!-- <p @click="getCastApi()">
                         Cast
-                    </p>
-                    <p v-for="(actor, i) in store.cast">
+                    </p> -->
+                    <p v-for="(actor, i) in this.actors">
                         {{ actor }}
                     </p>
                 </div>

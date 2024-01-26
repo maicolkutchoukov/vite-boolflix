@@ -99,6 +99,7 @@ export default {
                     :overview = "film.overview"
                     :originalLanguage = "film.original_language"
                     :posterPath = "film.poster_path"
+                    :idMovie ="film.id"
                     
                     />
                 </div>
@@ -124,6 +125,7 @@ export default {
                     :overview = "serie.overview"
                     :originalLanguage = "serie.original_language"
                     :posterPath = "serie.poster_path"
+                    :idSerie ="serie.id"
                     />
                 </div>
             </div>
